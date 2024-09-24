@@ -1,0 +1,27 @@
+[
+  {
+    "name": "Toyota 3FBE-25",
+    "modelNumber": "3FBE-25",
+    "manufacturingDate": "2022-01-15"
+  },
+  {
+    "name": "Caterpillar 250D",
+    "modelNumber": "250D",
+    "manufacturingDate": "2023-05-20"
+  },
+  {
+    "name": "Jungheinrich EFG 316",
+    "modelNumber": "EFG 316",
+    "manufacturingDate": "2024-09-07"
+  },
+  {
+    "name": "Hyundai R18-9",
+    "modelNumber": "R18-9",
+    "manufacturingDate": "2021-11-30"
+  },
+  {
+    "name": "Yale GP20VX",
+    "modelNumber": "GP20VX",
+    "manufacturingDate": "2020-07-12"
+  }
+]

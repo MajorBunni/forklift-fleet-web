@@ -1,0 +1,116 @@
+<div class="flex flex-col w-full h-fit gap-x-10 gap-y-12">
+  <div class="flex flex-col gap-6">
+    <h1 class="font-bold">Forklift movement</h1>
+
+    <form (ngSubmit)="onFormSubmitAddObstacle()" [formGroup]="obstaclesForm">
+      <div class="flex flex-col gap-2">
+        <label class="text-gray-400" for="obstacle">Enter ( X , Y ) coordinates to add obstacles within
+          warehouse</label>
+        <div class="inline-flex flex-wrap items-center gap-4">
+          <div class="relative">
+            <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+              <span class="text-gray-400 sm:text-sm">X</span>
+            </div>
+            <input formControlName="positionXInput" type="number"
+              class="block grow max-w-28 p-2 pl-7 rounded-lg ring-1 ring-inset ring-gray-300" />
+          </div>
+
+          <div class="relative">
+            <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+              <span class="text-gray-400 sm:text-sm">Y</span>
+            </div>
+            <input formControlName="positionYInput" type="number"
+              class="block grow max-w-28 p-2 pl-7 rounded-lg ring-1 ring-inset ring-gray-300" />
+          </div>
+
+          <button type="submit"
+            class="px-4 py-2 rounded-lg bg-gray-50 shadow ring-1 ring-gray-300 hover:bg-gray-100 focus:ring-2 focus:ring-gray-500">
+            Add obstacle
+          </button>
+          <button type="button" (click)="onClearAllPositionAndOutputs()"
+            class="flex flex-row px-4 py-2 items-center rounded-lg bg-gray-50 text-gray-700 shadow ring-1 ring-gray-300 gap-2 hover:bg-gray-100 focus:ring-2 focus:ring-gray-500">
+            <svg class="size-4 fill-gray-700" viewBox="0 0 448 512">
+              <path
+                d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z" />
+            </svg>Clear all
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <form (ngSubmit)="onFormSubmitExecuteCommand()" [formGroup]="movementsForm">
+      <div class="flex flex-col gap-2">
+        <label class="text-gray-400" for="movement">
+          Enter commands to control forklift (e.g. F10R90L90B5)
+        </label>
+        <div class="inline-flex flex-wrap gap-4">
+          <input formControlName="movementInput" type="text"
+            class="grow w-full md:w-auto p-2 rounded-lg ring-1 ring-inset ring-gray-300" />
+          <button type="submit"
+            class="px-4 py-2 rounded-lg bg-gray-50 shadow ring-1 ring-gray-300 hover:bg-gray-100 focus:ring-2 focus:ring-gray-500">
+            Execute movement
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="flex flex-col gap-4">
+    <h1 class="font-bold">Outputs and obstacles</h1>
+
+    <div class="relative flex flex-col w-full rounded-lg divide-y ring-1 ring-gray-300">
+      <div class="flex flex-col w-full p-4 gap-4">
+        @if (obstablePositions.length > 0)
+        {
+        <h1>Obstacles in warehouse</h1>
+
+        <div class="flex flex-wrap w-full mb-2 gap-4">
+          @for (obstacle of obstablePositions; track $index)
+          {
+          <div class="inline-flex w-fit px-4 py-2 shadow rounded-lg bg-amber-50 text-amber-700 ring-1 ring-amber-300">
+            <code>{{obstacle.toString()}}</code>
+          </div>
+          }
+        </div>
+        }@else
+        {
+        <p class="text-gray-400">No obstacles in warehouse.</p>
+        }
+      </div>
+
+      <div class="flex flex-col w-full p-4 gap-4">
+        @if(movementOutputs.length > 0)
+        {
+        <h1>Movement outputs for forklift</h1>
+
+        <div class="flex flex-col w-full mb-2 gap-4">
+          @for (movement of movementOutputsContent; track $index)
+          {
+          <div class="inline-flex w-fit px-4 py-2 shadow rounded-lg bg-gray-50 ring-1 ring-gray-300">
+            <code>{{movement.toString()}}</code>
+          </div>
+          }
+          @for (error of movementOutputsError; track $index)
+          {
+          <div class="inline-flex w-fit px-4 py-2 gap-2 shadow rounded-lg bg-red-50 text-red-700 ring-1 ring-red-300">
+            <span class="font-bold">Error:</span>
+            <code> {{error | titlecase}}</code>
+          </div>
+          }
+          @for (output of movementOutputsFinal; track $index)
+          {
+          <div class="inline-flex w-fit px-4 py-2 shadow rounded-lg bg-blue-50 text-blue-700 ring-1 ring-blue-300">
+            <code>{{output | titlecase}}</code>
+          </div>
+          }
+        </div>
+        } @else
+        {
+        <p class="text-gray-400">
+          No outputs found, please enter a commad to see its movement outputs.
+        </p>
+        }
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,42 @@
+<div class="grid md:grid-cols-3 w-full h-fit gap-x-10 gap-y-12">
+  <div class="grid col-span-3 md:col-span-1">
+    <form (ngSubmit)="onFormSubmit()" [formGroup]="forkliftsForm">
+      <div class="flex flex-col gap-6">
+        <h1 class="font-bold">Add forklift</h1>
+
+        <div class="flex flex-col gap-2">
+          <label class="text-gray-400" for="name">Name</label>
+          <input formControlName="name" type="text" class="p-2 rounded-lg ring-1 ring-inset ring-gray-300" />
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <label class="text-gray-400" for="modelNumber">Model number</label>
+          <input formControlName="modelNumber" type="text" class="p-2 rounded-lg ring-1 ring-inset ring-gray-300" />
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <label class="text-gray-400" for="manufacturingDate">Manufacturing Date</label>
+          <input formControlName="manufacturingDate" type="datetime"
+            class="p-2 rounded-lg ring-1 ring-inset ring-gray-300" />
+        </div>
+
+        <div class="inline-flex flex-wrap gap-4">
+          <button type="submit"
+            class="px-4 py-2 rounded-lg bg-gray-50 shadow ring-1 ring-gray-300 hover:bg-gray-100 focus:ring-2 focus:ring-gray-500">
+            Add forklift
+          </button>
+          <button (click)="loadForkliftsFromJSON()"
+            class="px-4 py-2 rounded-lg bg-gray-50 shadow ring-1 ring-gray-300 hover:bg-gray-100 focus:ring-2 focus:ring-gray-500">
+            Load forklifts from <code>.json</code> file
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="flex flex-col col-span-3 justify-items-start gap-6 md:col-span-2">
+    <h1 class="col-span-full h-fit font-bold">List of Forklifts</h1>
+
+    <forklift-list [forklifts]="forklifts" [getForkliftsData]="getForkliftsData" />
+  </div>
+</div>

@@ -1,0 +1,38 @@
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+  @if (forklifts.length > 0)
+  {
+  @for (forklift of forklifts; track $index)
+  {
+  <div class="flex flex-wrap h-fit rounded-lg shadow ring-1 ring-gray-300 divide-y divide-gray-200">
+    <div class="p-4 w-full">
+      <h1 class="text-xl">{{forklift.name}}</h1>
+      <div class="w-full text-gray-400">
+        <p class="text-sm">
+          Model: {{forklift.modelNumber}}
+        </p>
+        <p class="text-sm">
+          Make date: {{forklift.manufacturingDate | date}}
+        </p>
+      </div>
+    </div>
+
+    <div class="px-4 py-2 w-full">
+      <p class="text-sm">
+        Age: {{calculateAge(forklift.manufacturingDate).years}} years,
+        {{calculateAge(forklift.manufacturingDate).months}} months, and
+        {{calculateAge(forklift.manufacturingDate).days}} days
+      </p>
+    </div>
+
+    <button (click)="deleteForkliftData(forklift.id)"
+      class="px-4 py-2 w-full font-semibold rounded-b-lg text-sm text-left ring-0 ring-gray-500 text-red-600 hover:text-red-700 focus:ring-2">
+      Delete
+    </button>
+  </div>
+  }
+  } @else {
+  <p class="col-span-full text-gray-400">
+    No forklifts found in the database.
+  </p>
+  }
+</div>
