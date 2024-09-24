@@ -36,10 +36,18 @@ export class ForkliftMovementComponent {
       const match = movement.match(/([FBLR])(\d+)/)
       if (match) {
         const [_, command, value] = match
-        if (command === 'R') {
-          curOrientation += (+value / 90)
-        } else if (command === 'L') {
-          curOrientation -= (+value / 90)
+        // Check if this is a valid turning command
+        if (command === 'R' || command === 'L') {
+          if (+value % 90 === 0 && +value > 0 && +value <= 360) {
+            if (command === 'R') {
+              curOrientation += (+value / 90)
+            } else if (command === 'L') {
+              curOrientation -= (+value / 90)
+            }
+          } else {
+            // Move to the next command if degrees value is not a divisible of 90
+            return
+          }
         }
         this.movementOutputs.push(
           new ForkliftMovement(command, +value, this.getOrientation(curOrientation))

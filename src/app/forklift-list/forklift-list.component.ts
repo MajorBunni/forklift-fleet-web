@@ -78,7 +78,7 @@ export class ForkliftListComponent implements OnInit {
       const addForkliftRequest: AddForklift = {
         name: formValues.name,
         modelNumber: formValues.modelNumber,
-        manufacturingDate: makeDate.format('YYYY-MM-DD'),
+        manufacturingDate: makeDate.format('YYYY-MM-DD[T]hh:mm:ss'),
       }
 
       this.addToForkliftsData(addForkliftRequest)
